@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-function App() {
+import Header from "./components/Header";
+import Home from "./components/Home";
+import { Toaster } from "react-hot-toast";
+import { useState, useEffect } from "react";
+import api from "./api";
+import * as React from 'react';
+
+const App = () => {
+
+  const [games, setGames] = useState([]);
+
+  const getGames = async () => {
+    const response = await api.get("/games/listar-todos");
+
+    setGames(response.data);
+  };
+
+  useEffect(() => {
+    getGames();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Toaster position="bottom-center" />
+      <Header getGames={getGames} />
+      <Home games={games} getGames={getGames} />
+    </>
   );
-}
+};
 
 export default App;
