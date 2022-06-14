@@ -1,5 +1,5 @@
 import axios from "axios";
 
-const api = axios.create({ baseURL: "http://localhost:3010" });
+const api = axios.create({ baseURL: "https://reactgame2000.herokuapp.com/" });
 
 export default api;
